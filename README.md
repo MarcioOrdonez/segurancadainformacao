@@ -8,7 +8,7 @@
 
 - Eduardo Nunes
 
-- Tiago Dias
+- Thiago Dias
 
 - Elias Fabiano
 
