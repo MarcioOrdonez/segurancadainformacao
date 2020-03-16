@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import request
+from . import db
 
 module = Blueprint('crud', __name__)
 
