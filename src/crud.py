@@ -13,7 +13,6 @@ def inserir():
     senha = request.form.get('senha')
     sexo = request.form.get('sexo')
     telefone = request.form.get('telefone')
-    db.execute
 
 @module.route("/get", methods=["GET"])
 def get():
