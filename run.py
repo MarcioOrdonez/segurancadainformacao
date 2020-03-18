@@ -1,4 +1,4 @@
-from src import create_app
+from src import manager
 
 if __name__ == '__main__':
-    create_app().run(port=3000)
+    manager.run()

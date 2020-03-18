@@ -1,17 +1,31 @@
-from flask import Blueprint
-from flask import request
+from flask import Blueprint, request, render_template, current_app as app
+from sqlalchemy import create_engine
 
-module = Blueprint('crud', __name__)
+from src import db
+
+crud_bp = Blueprint('crud', __name__, url_prefix="/",
+                    template_folder='../templates')
 
 
-@module.route('/inserir', methods=["POST"])
+@crud_bp.route("/inserir", methods=["GET", "POST"])
 def inserir():
-    nome = request.form.get('nome')
-    email = request.form.get('email')
-    senha = request.form.get('senha')
-    sexo = request.form.get('sexo')
-    telefone = request.form.get('telefone')
+    if request.method == "POST":
+        nome = request.form.get('nome')
+        email = request.form.get('email')
+        senha = request.form.get('senha')
+        sexo = request.form.get('sexo')
+        telefone = request.form.get('telefone')
+        
+        engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
 
-@module.route("/get", methods=["GET"])
+        with engine.connect() as conn:
+            result = conn.execute('SELECT * FROM funcionario')
+
+            for data in result:
+                print(data)
+
+    return render_template('crud.html')
+
+@crud_bp.route("/get", methods=["GET"])
 def get():
     return "asdasdasdasd"
