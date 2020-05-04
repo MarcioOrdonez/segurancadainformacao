@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD</title>
+</head>
+<body>
+    <form action="{{ url_for('.inserir') }}" method="post">
+        <label for="nome">Nome </label>
+        <input type="text" name="nome">
+
+        <label for="email">E-mail </label>
+        <input type="text" name="email">
+
+        <label for="sexo">Sexo </label>
+        <input type="text" name="sexo">
+
+        <label for="nome">Telefone </label>
+        <input type="text" name="telefone">
+
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
