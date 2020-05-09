@@ -20,9 +20,11 @@ def create_app():
     migrate.init_app(app, db)
 
     with app.app_context():
-        from src.controllers.crud import crud_bp
+        from src.controllers import crud
+        app.register_blueprint(crud)
 
-        app.register_blueprint(crud_bp)
+        from src.controllers import auth
+        app.register_blueprint(auth)
 
         manager = Manager(app)
         manager.add_command('db', MigrateCommand)
