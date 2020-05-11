@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Serviços</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <table class="espaco">
+        <tr>
+            <td>
+                <h2 class="subtitulo">Cadastro de Serviços</h2>
+                <form onsubmit="event.preventDefault(); onFormSubmit()" autocomplete="off">
+                    <div>
+                        <div>
+                            <label> Nome do Serviço</label>
+                            <input type="text" name="nomesServico" id="nomeServico" placeholder="Serviço"
+                                class="campo-texto" required>
+                        </div>
+
+                        <div>
+                            <label>Valor</label>
+                            <input type="tel" name="telefone" id="telefone" placeholder="Ex.:R$00,00" class="campo-texto"
+                                required>
+                        </div>
+
+                        <div>
+                            <label> Tempo De Duração</label>
+                            <input type="time" name="tempo" id="tempo" class="campo-texto" required>
+                        </div>
+
+                        <div>
+                            <label>Discrição</label>
+                            <input type="text" name="discricao" id="discricao"
+                                placeholder="Ex.: corte feito .........................." class="campo-texto" required>
+                        </div>
+
+                        <div class="form-action-buttons">
+                            <input type="submit" value="Cadastrar" class="botao-confin">
+                        </div>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Valor</th>
+                            <th>Duração</th>
+                            <th>Discrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </td>
+
+        </tr>
+    </table>
+</body>
+
+</html>
