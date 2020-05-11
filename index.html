@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .menu {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 2px;
+            }
+
+            header {
+                /*position: fixed;*/
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 9px 0;
+                text-align: center;
+                background: #069;
+            }
+
+            header li {
+                display: inline-block;
+                margin:0 10px;
+                color: white;
+                font-size: 1.1em;
+            }
+            header li:hover{
+                cursor: pointer;
+            }
+
+            .conteudo{
+                height: 2000px;
+            }
+
+            section.content{
+                margin-top:50px;
+                
+            }
+        </style>
+        <title>Salão de Cabelereiro</title>
+    </head>
+
+    <body>
+        <header>
+            <div class="menu">
+                <nav>
+                    <ul>
+                        <li onclick="login()">Entrar</li>
+                        <li onclick="agenda()">Agendar</li>
+                        <li onclick="servico()">Serviço</li>
+                        <li onclick="perfil()">Meu Perfil</li>
+                    </ul>
+                </nav>
+            </div>
+            <!--center-->
+        </header>
+        <main>
+            <iframe id="tela" src="/login.html"height="565" width="100%" style="border:none;"></iframe>
+        </main>
+    </body>
+    <script src="gerenciamentoPage.js"></script>
+</html>
