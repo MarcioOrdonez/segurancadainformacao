@@ -1,68 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
-<table class="espaco">
-    <tr>
-        <td>
-            <h2 class="subtitulo">Cadastro de Usuários</h2>
-            <form action="/auth/signup" method="POST" autocomplete="off"> 
-                <label> Nome Completo</label>
-                <input type="text" name="name" id="nomeCompleto" class="campo-texto" placeholder="Nome Completo">
-                                
-                <fieldset class="campo-selecao">
-                    <legend style="margin-bottom: 5px;">Sexo </legend>
-                        <label for="H"><input type="radio" id="H"name="radioHomem" value="Homem" checked>Homem</label>
-                        <label for="M"><input type="radio" id="M" name="radioMulher" value="Mulher"> Mulher</label>
-                </fieldset>
+<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/reset.css') }}">
+    <table class="espaco">
+        <tr>
+            <td>
+                <h2 class="subtitulo">Cadastro de Usuários</h2>
+                <form action="/auth/signup" method="POST" autocomplete="off"> 
+                    <label> Nome Completo</label>
+                    <input type="text" name="name" id="nomeCompleto" class="campo-texto" placeholder="Nome Completo">
+                                    
+                    <fieldset class="campo-selecao">
+                        <legend style="margin-bottom: 5px;">Sexo </legend>
+                            <label for="H"><input type="radio" id="H"name="radioHomem" value="Homem" checked>Homem</label>
+                            <label for="M"><input type="radio" id="M" name="radioMulher" value="Mulher"> Mulher</label>
+                    </fieldset>
 
-                <label>Telefone</label>
-                <input type="tel" name="telefone" id="telefone" class="campo-texto" placeholder="Ex.: (00) 0000-0000">
-                    
-                <label>CPF</label>
-                <input type="text" name="cpf" id="cpf" class="form-control cpf-mask campo-texto" placeholder="Ex.: 000.000.000-00">
+                    <label>Telefone</label>
+                    <input type="tel" name="telefone" id="telefone" class="campo-texto" placeholder="Ex.: (00) 0000-0000">
                         
-                <label> CEP</label>
-                <input type="text" name="cep" id="cep" class="campo-texto" placeholder="CEP">
-                    
-                <label> Endereço</label>
-                <input type="text" name="end" id="end" class="campo-texto" placeholder="Endereço">
+                    <label>CPF</label>
+                    <input type="text" name="cpf" id="cpf" class="form-control cpf-mask campo-texto" placeholder="Ex.: 000.000.000-00">
+                            
+                    <label> CEP</label>
+                    <input type="text" name="cep" id="cep" class="campo-texto" placeholder="CEP">
+                        
+                    <label> Endereço</label>
+                    <input type="text" name="end" id="end" class="campo-texto" placeholder="Endereço">
 
-                <label> Numero</label>
-                <input type="number" name="num" id="num" class="campo-texto" placeholder="Numero">
-                            
-                <label>E-mail</label>
-                <input type="email" id="email" name="email" class="campo-texto" placeholder="E-mail">
-                            
-                <label>Senha</label>
-                <input type="password" id="senha" name="password" class="campo-texto" placeholder="Senha">
-                            
-                <label>Repitir senha</label>
-                <input type="password" id="segSenha" name="seguSenha" class="campo-texto" placeholder="Repetir Senha">
+                    <label> Numero</label>
+                    <input type="number" name="num" id="num" class="campo-texto" placeholder="Numero">
+                                
+                    <label>E-mail</label>
+                    <input type="email" id="email" name="email" class="campo-texto" placeholder="E-mail">
+                                
+                    <label>Senha</label>
+                    <input type="password" id="senha" name="password" class="campo-texto" placeholder="Senha">
+                                
+                    <label>Repitir senha</label>
+                    <input type="password" id="segSenha" name="seguSenha" class="campo-texto" placeholder="Repetir Senha">
 
-                <fieldset class="form-action-buttons">
-                        <input type="submit" class="botao-confin" value="Cadastrar">       
-                </fieldset>
-            </form>
-        </td>
-        <td>
-            <table class="list" id="employeeList">
-                <thead>
-                    <tr>
-                        <th>Nome Completo</th>
-                        <th>Sexo</th>
-                        <th>Telefone</th>
-                        <th>CPF</th>
-                        <th>Data Nascimento</th>
-                        <th>CEP</th>
-                        <th>Enderenço</th>
-                        <th>N°</th>
-                        <th>Email</th>
-                        <th>Categoria</th>   
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-</table>
+                    <fieldset class="form-action-buttons">
+                            <input type="submit" class="botao-confin" value="Cadastrar">       
+                    </fieldset>
+                </form>
+            </td>
+            <!-- <td>
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>Nome Completo</th>
+                            <th>Sexo</th>
+                            <th>Telefone</th>
+                            <th>CPF</th>
+                            <th>Data Nascimento</th>
+                            <th>CEP</th>
+                            <th>Enderenço</th>
+                            <th>N°</th>
+                            <th>Email</th>
+                            <th>Categoria</th>   
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </td> -->
+        </tr>
+    </table>
 {% endblock %}
