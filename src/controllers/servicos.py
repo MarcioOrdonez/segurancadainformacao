@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user, login_required
+from flask import Blueprint, render_template, request, redirect, url_for
+# from flask_login import login_required
 
 import datetime
 
@@ -13,15 +12,14 @@ servicos_module = Blueprint('servicos', __name__, url_prefix="/servicos",
     
 
 @servicos_module.route("/create", methods=["GET"])
-@login_required
 def servico():
-    return 'tela de criar servicos'
+    return render_template('servico.html')
+    # return 'asdasdasdasas'
 
 @servicos_module.route("/create", methods=["POST"])
-@login_required
 def create_servico():
-    nome = request.form.get('email')
-    descricao = request.form.get('password')
+    nome = request.form.get('nome')
+    descricao = request.form.get('descricao')
     preco = request.form.get('preco')
     duracao = request.form.get('duracao')
     novo_servico = Servicos(nome = nome, descricao = descricao,
@@ -31,7 +29,6 @@ def create_servico():
     return 'tela de criar servicos'
 
 @servicos_module.route("/list", methods=["GET"])
-@login_required
 def list_servico():
     servicos = Servicos.query.all()
     return servicos
