@@ -11,7 +11,7 @@ agenda_module = Blueprint('agenda', __name__, url_prefix="/agenda",
                     template_folder='../templates')
 
 
-@agendamento_module.route("/create", methods=["GET"])
+@agenda_module.route("/create", methods=["GET"])
 @login_required
 def agenda():
     if current_user.funcionario:

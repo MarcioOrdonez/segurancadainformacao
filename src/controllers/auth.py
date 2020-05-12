@@ -13,7 +13,7 @@ auth_module = Blueprint('auth', __name__, url_prefix="/auth",
 
 @auth_module.route("/login", methods=["GET"])
 def login():
-    return 'tela de login'
+    return render_template('login.html')
 
 
 @auth_module.route('/login', methods=['POST'])
@@ -32,14 +32,15 @@ def login_post():
 
 @auth_module.route('/signup')
 def signup():
-    return 'tela de criação de usuario'
+    return render_template('usuario.html')
 
 @auth_module.route('/signup', methods=['POST'])
 def signup_post():
     user_email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
-    data_nascimento = request.form.get('data_nascimento')
+    # data_nascimento = request.form.get('data_nascimento')
+    data_nascimento = datetime.datetime.now()
     cpf = request.form.get('cpf')
 
     user = Usuario.query.filter_by(email=user_email).first()
