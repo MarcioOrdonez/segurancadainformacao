@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<table class="espaco-login"> 
+    <tr>
+        <td>
+            <h2 class="subtitulo">Login</h2>
+            <form method="POST" action="/auth/login" autocomplete="off"> 
+                <label for="email">E-mail</label>
+                <input type="email" id="email" class="campo-texto" name="email" placeholder="E-mail">
+                        
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" class="campo-texto" name="password" placeholder="Senha">
+
+                <a href="https://www.w3schools.com">Recuperar Senha</a>
+                <fieldset class="form-action-buttons">
+                    <input type="submit" name="login" id="login" class="botao-confin" value="Log-in"> 
+                </fieldset>
+            </form>
+        </td>
+    </tr>
+</table>
+{% endblock %}
