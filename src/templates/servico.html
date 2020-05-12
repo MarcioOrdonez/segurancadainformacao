@@ -1,13 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<html lang="en">
-<head>
-    <title>Cadastro de Serviços</title>
-    <link rel="stylesheet" href="/src/static/reset.css">
-    <link rel="stylesheet" href="/src/static/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
-</head>
-<body>
+<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <table class="espaco">
         <tr>
             <td>
@@ -43,7 +36,7 @@
                     </div>
                 </form>
             </td>
-            <td>
+            <!-- <td>
                 <table class="list" id="employeeList">
                     <thead>
                         <tr>
@@ -56,10 +49,8 @@
                     <tbody>
                     </tbody>
                 </table>
-            </td>
+            </td> -->
 
         </tr>
     </table>
-</body>
-</html>
 {% endblock %}

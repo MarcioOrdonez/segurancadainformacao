@@ -3,6 +3,7 @@
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
+        <!-- <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css') }}"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style type="text/css">
             * {
@@ -54,20 +55,18 @@
             <div class="menu">
                 <nav>
                     <ul>
-                        <li onclick="login()">Entrar</li>
-                        <li onclick="agenda()">Agendar</li>
-                        <li onclick="servico()">Serviço</li>
-                        <li onclick="perfil()">Meu Perfil</li>
+                        <li>Entrar</li>
+                        <li>Agendar</li>
+                        <li>Serviço</li>
+                        <li>Meu Perfil</li>
                     </ul>
                 </nav>
             </div>
             <!--center-->
         </header>
-        <iframe id="tela" src="login.html" height="900px" width="100%" style="border:none;"></iframe>
         <div>
             {% block content %}
             {% endblock %}
         </div>
     </body>
-    <script src="/src/static/gerenciamentoPage.js"></script>
 </html>
