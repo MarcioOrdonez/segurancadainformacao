@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-# from flask_login import login_required
+from flask_login import login_required
 
 import datetime
 
@@ -12,6 +12,7 @@ servicos_module = Blueprint('servicos', __name__, url_prefix="/servicos",
     
 
 @servicos_module.route("/create", methods=["GET"])
+@login_required
 def servico():
     return render_template('servico.html')
     # return 'asdasdasdasas'
