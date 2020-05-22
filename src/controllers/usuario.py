@@ -39,3 +39,20 @@ def delete_one():
     registro_id = request.form.get("registro_id")
     registro = Agendamento.query.filter_by(id = registro_id)
     registro.id_usuario = 1 # usuario_anonimo.id
+
+@usuario_module.route("/delete", methods=["POST"])
+@login_required
+def delete_user():
+    if current_user.funcionario:
+        user_id = request.form.get('user_id')
+        user = User.query.filter_by(id = user_id)
+    else:
+        user_id = current_user.id
+        user = User.query.filter_by(id = user_id)
+    historico = Agendamento.query.filter_by(id_user = user_id)
+    for registro in historico:
+        registro.id_user() = 1 #id do usuario anonimo
+    db.session.delete(user)
+    db.session.commit()
+    return 'deletado'
+    
