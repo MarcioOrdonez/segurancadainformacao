@@ -30,7 +30,8 @@ def agendamento():
 def criar_agendamento():
     id_usuario = request.form.get('id_usuario')
     id_servico = request.form.get('id_servico')
-    novo_agendamento = Agendamento(id_usuario = id_usuario, id_servico = id_servico)
+    horario = request.form.get('horario')
+    novo_agendamento = Agendamento(id_usuario = id_usuario, id_servico = id_servico, horario = horario)
     db.session.add(novo_agendamento)
     db.session.commit()
     return 'pagina de agendamento'
