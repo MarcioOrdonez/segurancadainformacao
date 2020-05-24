@@ -10,7 +10,7 @@ from src.models.tabelas import *
 usuario_module = Blueprint('usuario', __name__, url_prefix="/usuario",
                     template_folder='../templates')
 
-@usuario_module.route("/historico", methods=["GET"])
+@usuario_module.route("/historico", methods=["GET","POST"])
 @login_required
 def get_historico():
     if request.method == "GET":
@@ -45,13 +45,13 @@ def delete_one():
 def delete_user():
     if current_user.funcionario:
         user_id = request.form.get('user_id')
-        user = User.query.filter_by(id = user_id)
+        user = Usuario.query.filter_by(id = user_id)
     else:
         user_id = current_user.id
-        user = User.query.filter_by(id = user_id)
+        user = Usuario.query.filter_by(id = user_id)
     historico = Agendamento.query.filter_by(id_user = user_id)
     for registro in historico:
-        registro.id_user() = 1 #id do usuario anonimo
+        registro.id_user = 1 #id do usuario anonimo
     db.session.delete(user)
     db.session.commit()
     return 'deletado'

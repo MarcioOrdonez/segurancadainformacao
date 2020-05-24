@@ -53,19 +53,14 @@ class Servicos(db.Model):
     descricao = db.Column(db.String(60), nullable=False)
     preco = db.Column(db.String(60), nullable=False)
     duracao = db.Column(db.String(60), nullable=False)
+    disponibilidade = db.Column(db.Boolean, nullable=False)
 
 
 class Agendamento(db.Model):
     __tablename__ = 'agendamento'
 
     id_agendamento = db.Column(db.Integer, primary_key=True)
+    data_agendada = db.Column(db.DateTime, nullable=False)
 
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuarios.id_usuario'), nullable=False)
     id_servico = db.Column(db.Integer, db.ForeignKey('servicos.id_servico'), nullable=False)
-
-class Agenda(db.Model):
-    __tablename__ = 'agenda'
-
-    id = db.Column(db.Integer, primary_key=True)
-    data_agendada = db.Column(db.DateTime, nullable=False)
-    id_agendamento = db.Column(db.Integer, db.ForeignKey('agendamento.id_agendamento'), nullable=False)

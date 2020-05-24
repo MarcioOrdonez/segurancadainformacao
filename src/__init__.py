@@ -27,20 +27,18 @@ from src.models import tabelas
 db.create_all(app=app)
 migrate.init_app(app, db)
 with app.app_context():
-    # from src.controllers import crud
-    # app.register_blueprint(crud)
 
     from src.controllers import auth
     app.register_blueprint(auth)
-
-    from src.controllers import agenda
-    app.register_blueprint(agenda)
 
     from src.controllers import agendamento
     app.register_blueprint(agendamento)
 
     from src.controllers import servicos
     app.register_blueprint(servicos)
+
+    from src.controllers import usuario
+    app.register_blueprint(usuario)
 
     manager = Manager(app)
     manager.add_command('db', MigrateCommand)
