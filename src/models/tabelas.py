@@ -16,7 +16,7 @@ class Usuario(db.Model):
     telefones = db.relationship('Telefone', backref=db.backref('usuario', lazy=True))
 
     def __repr__(self):
-        return f'Usuario {self.id_usuario}'
+        return f'<Usuario {self.id_usuario}>'
 
 
 class Endereco(db.Model):
@@ -55,6 +55,9 @@ class Servicos(db.Model):
     duracao = db.Column(db.String(60), nullable=False)
     disponibilidade = db.Column(db.Boolean, nullable=False)
 
+    def __repr__(self):
+        return f'<Servico {self.id_servico}>'
+
 
 class Agendamento(db.Model):
     __tablename__ = 'agendamento'
@@ -64,3 +67,6 @@ class Agendamento(db.Model):
 
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuarios.id_usuario'), nullable=False)
     id_servico = db.Column(db.Integer, db.ForeignKey('servicos.id_servico'), nullable=False)
+
+    def __repr__(self):
+        return f'<Agendamento {self.id_agendamento}>'
