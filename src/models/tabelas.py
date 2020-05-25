@@ -12,6 +12,7 @@ class Usuario(db.Model):
     cpf = db.Column(db.String(11), nullable=False)
     funcionario = db.Column(db.Boolean, nullable=False)
 
+    agendamentos = db.relationship('Agendamento', backref='usuario')
     endereco = db.relationship('Endereco', backref='usuario')
     telefones = db.relationship('Telefone', backref=db.backref('usuario', lazy=True))
 
@@ -54,6 +55,7 @@ class Servicos(db.Model):
     preco = db.Column(db.String(60), nullable=False)
     duracao = db.Column(db.String(60), nullable=False)
     disponibilidade = db.Column(db.Boolean, nullable=False)
+    agendamentos = db.relationship('Agendamento', backref='servico')
 
     def __repr__(self):
         return f'<Servico {self.id_servico}>'
@@ -65,8 +67,8 @@ class Agendamento(db.Model):
     id_agendamento = db.Column(db.Integer, primary_key=True)
     data_agendada = db.Column(db.DateTime, nullable=False)
 
-    id_usuario = db.Column(db.Integer, db.ForeignKey('usuarios.id_usuario'), nullable=False)
-    id_servico = db.Column(db.Integer, db.ForeignKey('servicos.id_servico'), nullable=False)
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id_usuario'))
+    servico_id = db.Column(db.Integer, db.ForeignKey('servicos.id_servico'))
 
     def __repr__(self):
         return f'<Agendamento {self.id_agendamento}>'

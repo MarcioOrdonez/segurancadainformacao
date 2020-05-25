@@ -24,7 +24,8 @@ def create_servico():
     preco = request.form.get('preco')
     duracao = request.form.get('duracao')
     novo_servico = Servicos(nome = nome, descricao = descricao,
-                    preco = preco, duracao = duracao)
+                    preco = preco, duracao = duracao,
+                    disponibilidade = True)
     db.session.add(novo_servico)
     db.session.commit()
     return 'tela de criar servicos'
