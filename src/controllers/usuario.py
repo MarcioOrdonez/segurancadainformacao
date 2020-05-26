@@ -20,23 +20,25 @@ def get_historico():
         if current_user.funcionario:
             historico = Agendamento.query.all()
         else:
-            historico = Agendamento.funcario.filter_by(id_usuario = current_user.id)
+            historico = Agendamento.funcario.filter_by(usuario = current_user).all()
 
     elif request.method == "POST":
         if current_user.funcionario:
-            historico = Agendamento.query.filter_by(id_usuario = request.form.get('id_usuario'))
+            usuario = Usuario.query.filter_by(id_usuario = request.form.get('id_usuario')).first()
+            historico = Agendamento.query.filter_by(usuario = usuario).all()
 
-    return historico # retorna a lista de historico referente o usuario logado
+    return "Lista de historico"# historico retorna a lista de historico referente o usuario logado
 
 
 @usuario_module.route("/historico/delete_all", methods=["POST"])
 @login_required
 def delete_all_historico():
     if not current_user.funcionario:
-        historico = Agendamento.query.filter_by(id_usuario = current_user.id)
+        usuario_anonimo = Usuario.query.filter_by(id_usuario = 1).first() # pegar usuario anonimo
+        historico = Agendamento.query.filter_by(usuario = current_user)
 
         for registro in historico:
-            registro.id_user = 1 #usuario_anonimo.id
+            registro.usuario = usuario_anonimo #usuario_anonimo.id
 
         db.session.commit()
 
@@ -44,10 +46,11 @@ def delete_all_historico():
 @usuario_module.route("/historico/delete", methods=["POST"])
 @login_required
 def delete_one():
+    usuario_anonimo = Usuario.query.filter_by(id_usuario = 1).first() # pegar usuario anonimo
     registro_id = request.form.get("registro_id")
 
-    registro = Agendamento.query.filter_by(id = registro_id)
-    registro.id_usuario = 1 # usuario_anonimo.id
+    registro = Agendamento.query.filter_by(id_agendamento = registro_id).first()
+    registro.usuario = usuario_anonimo # usuario_anonimo.id
 
     db.session.commit()
 
@@ -57,15 +60,15 @@ def delete_one():
 def delete_user():
     if current_user.funcionario:
         user_id = request.form.get('user_id')
-        user = Usuario.query.filter_by(id = user_id)
+        user = Usuario.query.filter_by(id_usuario = user_id).first()
     else:
-        user_id = current_user.id
-        user = Usuario.query.filter_by(id = user_id)
+        user = current_user
 
-    historico = Agendamento.query.filter_by(id_user = user_id)
+    historico = Agendamento.query.filter_by(usuario = user).all()
 
+    usuario_anonimo = Usuario.query.filter_by(id_usuario = 1).first() # pegar usuario anonimo
     for registro in historico:
-        registro.id_user = 1 # id do usuario anônimo
+        registro.usuario = usuario_anonimo # id do usuario anônimo
 
     db.session.delete(user)
     db.session.commit()

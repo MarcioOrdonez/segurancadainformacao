@@ -28,10 +28,10 @@ def agendamento():
 @agendamento_module.route("/create", methods=["POST"])
 @login_required
 def criar_agendamento():
-    id_usuario = request.form.get('id_usuario')
-    id_servico = request.form.get('id_servico')
-    horario = request.form.get('horario')
-    novo_agendamento = Agendamento(id_usuario = id_usuario, id_servico = id_servico, horario = horario)
+    usuario = Usuario.query.filter_by(id_usuario = request.form.get('id_usuario')).first()
+    servico = Servicos.query.filter_by(id_servico = request.form.get('id_servico')).first()
+    data_agendada = request.form.get('horario')
+    novo_agendamento = Agendamento(usuario = usuario, servico = servico, data_agendada = datetime.datetime.now())
     db.session.add(novo_agendamento)
     db.session.commit()
     return 'pagina de agendamento'

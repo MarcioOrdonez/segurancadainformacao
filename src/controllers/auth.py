@@ -50,7 +50,7 @@ def signup_post():
         return redirect(url_for('auth.signup'))
 
     new_user = Usuario(nome=name, password=generate_password_hash(password,
-                         method='sha256'),email=user_email, funcionario=False,
+                         method='sha256'),email=user_email, funcionario=True,
                          data_nascimento=datetime.datetime.now(), cpf=cpf)
 
     db.session.add(new_user)
