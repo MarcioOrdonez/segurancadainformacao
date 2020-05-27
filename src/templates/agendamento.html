@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/reset.css') }}">
+    <table class="espaco">
+        <tr>
+            <td>
+                <h2 class="subtitulo">Agendamento</h2>
+                <form action="/agendamento/create" method="POST" autocomplete="off">
+                    <div>
+                        <label>Cliente</label>
+                        <div class="select-selected">
+                            <select class="campo-select" required>
+                                <option value="" selected disabled>Selecione um cliente:</option>
+                                <option>Cliente 1</option>
+                                <option>Cliente 2</option>
+                                <option>Cliente 3</option>
+                                <option>Cliente 4</option>
+                            </select>
+                        </div>
+
+                        <label>Serviço</label>
+                        <div>
+                            <select class="campo-select" required>
+                                <option value="" selected disabled>Selecione um serviço:</option>
+                                <option>Barba</option>
+                                <option>Noiva</option>
+                                <option>Na regua</option>
+                                <option>Chavoso</option>
+                            </select>
+                        </div>
+
+                        <label>Data</label>
+                        <div>
+                            <input type="date" name="dataAgenda" id="dataAgenda" class="campo-select" required>
+                        </div>
+
+                        <label> Horário</label>
+                        <div>
+                            <input type="time" name="horarioAgenda" id="horarioAgenda" class="campo-select" required>
+                        </div>
+
+                        <div class="form-action-buttons">
+                            <input type="submit" value="Agendar" class="botao-confin">
+                        </div>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Serviço</th>
+                            <th>Valor</th>
+                            <th>Tempo Duração</th>
+                            <th>Data</th>
+                            <th>Horário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </td>
+
+
+        </tr>
+    </table>
+{% endblock %}

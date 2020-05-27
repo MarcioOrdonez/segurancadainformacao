@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <table class="espaco">
+        <tr>
+            <td>
+                <h2 class="subtitulo">Cadastro de Serviços</h2>
+                <form action="/servicos/create" method="POST" autocomplete="off">
+                    <div>
+                        <div>
+                            <label> Nome do Serviço</label>
+                            <input type="text" name="nome" id="nomeServico" placeholder="Serviço"
+                                class="campo-texto" required>
+                        </div>
+
+                        <div>
+                            <label>Valor</label>
+                            <input type="tel" name="preco" id="telefone" placeholder="Ex.:R$00,00" class="campo-texto"
+                                required>
+                        </div>
+
+                        <div>
+                            <label> Tempo De Duração</label>
+                            <input type="time" name="duracao" id="tempo" class="campo-texto" required>
+                        </div>
+
+                        <div>
+                            <label>Descrição</label>
+                            <input type="text" name="descricao" id="discricao"
+                                placeholder="Ex.: corte feito .........................." class="campo-texto" required>
+                        </div>
+
+                        <div class="form-action-buttons">
+                            <input type="submit" value="Cadastrar" class="botao-confin">
+                        </div>
+                    </div>
+                </form>
+            </td>
+            <!-- <td>
+                <table class="list" id="employeeList">
+                    <thead>
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Valor</th>
+                            <th>Duração</th>
+                            <th>Discrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </td> -->
+
+        </tr>
+    </table>
+{% endblock %}
