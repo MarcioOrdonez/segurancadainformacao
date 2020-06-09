@@ -3,20 +3,24 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import LoginManager
+from dotenv import load_dotenv
+from pathlib import Path 
 
 import os
 
 db = SQLAlchemy()
 migrate = Migrate()
 
+env_path = Path('.')/'.env'
+load_dotenv(dotenv_path=env_path)
 
 
 app = Flask(__name__)
 project_dir = os.path.dirname(os.path.abspath(__file__))
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://root:admin@localhost/lgpd"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../salao.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
+# app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('MySQL_DB)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQL_DB')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 db.init_app(app)
 login_manager = LoginManager()
