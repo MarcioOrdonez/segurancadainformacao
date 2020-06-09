@@ -6,6 +6,7 @@ import datetime
 
 from src import db
 from src.models.tabelas import *
+from src.packages import Criptografia
 
 auth_module = Blueprint('auth', __name__, url_prefix="/auth",
                     template_folder='../templates')
@@ -18,14 +19,19 @@ def login():
 
 @auth_module.route('/login', methods=['POST'])
 def login_post():
+    cripto= Criptografia()
     email = request.form.get('email')
     password = request.form.get('password')
 
     user = Usuario.query.filter_by(email=email).first()
 
-    if not user and not check_password_hash(user.password, password):
+    if not user:
         flash('Please check your login details and try again.')
         return redirect(url_for('auth.login'))
+    else:
+        password = cripto.criptografar(user.chave_publica, password)
+        if password == user.password:
+            return 'logado'
 
     return 'tela principal depois de logado'
 
@@ -36,12 +42,17 @@ def signup():
 
 @auth_module.route('/signup', methods=['POST'])
 def signup_post():
+    cripto= Criptografia()
+    chaves=cripto.criaChaves()
+    chave_publica = chaves["public"]
+    chave_privada = chaves["private"]
+
     user_email = request.form.get('email')
-    name = request.form.get('name')
+    name = cripto.criptografar(chave_publica,request.form.get('name'))
     password = request.form.get('password')
     # data_nascimento = request.form.get('data_nascimento')
-    data_nascimento = datetime.datetime.now()
-    cpf = request.form.get('cpf')
+    data_nascimento = cripto.criptografar(chave_publica,datetime.datetime.now())
+    cpf = cripto.criptografar(chave_publica,request.form.get('cpf'))
 
     user = Usuario.query.filter_by(email=user_email).first()
 
@@ -49,11 +60,14 @@ def signup_post():
         flash('Email address already exists.')
         return redirect(url_for('auth.signup'))
 
-    new_user = Usuario(nome=name, password=generate_password_hash(password,
-                         method='sha256'),email=user_email, funcionario=True,
-                         data_nascimento=datetime.datetime.now(), cpf=cpf)
+    new_user = Usuario(nome=name, password=cripto.criptografar(chave_publica,password),
+                        email=user_email, funcionario=True,
+                        data_nascimento=data_nascimento, cpf=cpf, chave_publica=chave_publica )
 
     db.session.add(new_user)
+    usuario = Usuario.query.filter_by(email=user_email).first()
+    tabela_chaves = Tabela_chaves(id_usuario = usuario.id_usuario, chave_privada = chave_privada)
+    db.session.add(tabela_chaves)
     db.session.commit()
 
     return "vai pra tela de login"
