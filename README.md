@@ -11,7 +11,7 @@ Nome | Telefone | Data do Agendamento | Valor
 Eduardo |12-34566789 | 01/06/20 | R$ 40,00
 Anonimo|**Dado Deletado** | 01/06/20 | R$ 40,00
 
-## O que é LGBD?
+## O que é LGPD?
 [![](http://img.youtube.com/vi/y7SamL2wYSc/0.jpg)](http://www.youtube.com/watch?v=y7SamL2wYSc "O que é LGPD?")
 
 ## Processo de Desenvolvimento
@@ -22,10 +22,10 @@ Anonimo|**Dado Deletado** | 01/06/20 | R$ 40,00
  - [x] Escolher melhores ferramentas
  - [x] Como planejar as strints
  - [x] Criar calendarios possiveis
- 
+
 ### Sprint 2
 - [x] Criar protóticos
-- [x] Desmonstar idéias
+- [x] Desmonstar ideias
 - [x] Fazer Testes
 - [x] Tarefa
 
@@ -33,47 +33,47 @@ Anonimo|**Dado Deletado** | 01/06/20 | R$ 40,00
 
 ### Pré requisitos de instalação
 
-Para execultar o ambiente de desenvolvimento é necessario que tenha essa dependencias abaixo: 
+Para executar o ambiente de desenvolvimento é necessario que tenha essa dependências abaixo: 
 
-* python 3.8
+* Python 3.8
 * virtualenv
 * pip
 * Flask
 
 
-Abra o terminal de comando e execulte o seguite comandos:
+Abra o terminal de comando e execute os seguites comandos:
 
-* Instalação do python 3.8
+* Instalação do python 3\
 `sudo apt-get install python3`
 
-* Instalação do Pip (pip é um sistema de gerenciamento de pacotes padrão)
+* Instalação do Pip, caso são possua instalado (pip é um sistema de gerenciamento de pacotes padrão da linguagem Python)\
  `sudo apt-get install python-pip`
 
-* Instalação Virtualenv (Controlador de dependencias)
-`pipx install virtualenv`
+* Instalação do Virtualenv (Criação de ambientes virtuais isolados)\
+`pip install virtualenv`
 
-* Criando uma virtualenv 
+* Criando uma virtualenv\
 `virtualenv nome_da_virtualenv`
 
-* Ativado a virtualenv
-`souce nome_da_virtualenv/bin/activate`
+* Ativando a virtualenv\
+`source nome_da_virtualenv/bin/activate`
 
-* Instalando Flask
+* Instalando Flask\
 `pip install flask`
 
-* Intalando as depêndencias
-`pip install -r requirements.txt` 
+* Intalando todas as depêndencias do projeto\
+`pip install -r requirements.txt`
 
-* Depois dos procedimentos basta execultar o projeto em uma IDE desejada que interprete python
+* Depois dos procedimentos, basta executar o projeto na IDE desejada e que interprete python
 
-## Tecnologia Usada
+## Tecnologias utilizadas
 
 * Python 
 * Flask
-* HTML/CSS
+* HTML e CSS
 * MySQL
 
-## Autores 
+## Autores
 
 * Marcio Ordonez 
 * Eduardo Nunes 
@@ -83,10 +83,9 @@ Abra o terminal de comando e execulte o seguite comandos:
 
 
 
-## Lincença 
-Esse Sistema seu código fonte livre para ser estudado  e usado por qualquer pessoa que queria
+## Licença
+Esse sistema e seu código fonte são livres para serem estudados e utilizados por quaisquer interessados que desejem entender mais sobre seu funcionamento
 
 
-## Agradecimento 
-Professor e Orientador  Segurança da Informação da Fatec São José dos Campos
-Eduardo Sakaue 
+## Agradecimento
+Professor e Orientador da disciplina de Segurança da Informação da Fatec São José dos Campos
