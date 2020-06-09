@@ -29,30 +29,27 @@ def get_historico():
 
     return "Lista de historico"# historico retorna a lista de historico referente o usuario logado
 
-
-@usuario_module.route("/historico/delete_all", methods=["POST"])
-@login_required
-def delete_all_historico():
-    if not current_user.funcionario:
-        usuario_anonimo = Usuario.query.filter_by(id_usuario = 1).first() # pegar usuario anonimo
-        historico = Agendamento.query.filter_by(usuario = current_user)
-
-        for registro in historico:
-            registro.usuario = usuario_anonimo #usuario_anonimo.id
-
-        db.session.commit()
+# esses metodos nao irão mais existir, mas precisamos debater isso
+# @usuario_module.route("/historico/delete_all", methods=["POST"])
+# @login_required
+# def delete_all_historico():
+#     if not current_user.funcionario:
+#         tabela_chaves = Tabela_chaves.query.filter_by(id_usuario = current_user.id_usuario)
+#         # tabela_chaves = Tabela_chaves.query.filter_by(id_usuario = request.form.get("id_usuario")).first()
+#         db.session.delete(tabela_chaves)
+#         db.session.commit()
 
 
-@usuario_module.route("/historico/delete", methods=["POST"])
-@login_required
-def delete_one():
-    usuario_anonimo = Usuario.query.filter_by(id_usuario = 1).first() # pegar usuario anonimo
-    registro_id = request.form.get("registro_id")
+# @usuario_module.route("/historico/delete", methods=["POST"])
+# @login_required
+# def delete_one():
+#     usuario_anonimo = Usuario.query.filter_by(id_usuario = 1).first() # pegar usuario anonimo
+#     registro_id = request.form.get("registro_id")
 
-    registro = Agendamento.query.filter_by(id_agendamento = registro_id).first()
-    registro.usuario = usuario_anonimo # usuario_anonimo.id
+#     registro = Agendamento.query.filter_by(id_agendamento = registro_id).first()
+#     registro.usuario = usuario_anonimo # usuario_anonimo.id
 
-    db.session.commit()
+#     db.session.commit()
 
 
 @usuario_module.route("/delete", methods=["POST"])
@@ -74,3 +71,30 @@ def delete_user():
     db.session.commit()
 
     return 'deletado'
+
+@usuario_module.route('/deleta_endereco', methods=['Post'])
+@login_required
+def deletar_end():
+    endereco = Endereco.query.filter_by(id_usuario=current_user.id_usuario).first()
+    db.session.delete(endereco)
+    db.session.commit()
+    return 'endereco deletado'
+
+    return 'endereco não deletado'
+
+@usuario_module.route('/alterar_endereco', methods=['Post'])
+@login_required
+def alterar_end():
+    numero=int(request.form.get('numero'))
+    cep=request.form.get('cep')
+    comp=request.form.get('complemento')
+    if numero > 0 and cep != "":
+        endereco = Endereco.query.filter_by(id_usuario=current_user.id_usuario).first()
+        endereco.cep=cep
+        endereco.numero=numero
+        endereco.complemento=comp
+        db.session.commit()
+        return "alterado endereco"
+        
+        
+    return 'não alterado'

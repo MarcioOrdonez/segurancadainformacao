@@ -15,6 +15,10 @@ app = Flask(__name__)
 project_dir = os.path.dirname(os.path.abspath(__file__))
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://root:admin@localhost/lgpd"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../salao.db"
+app.config["SQLALCHEMY_BINDS"] = {
+    "banco_principal" : "sqlite:///../salao.db",
+    "chaves_privadas" : "sqlite:///../chaves_privadas.db"
+}
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
 
