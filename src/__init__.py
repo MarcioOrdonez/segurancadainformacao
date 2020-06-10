@@ -17,14 +17,14 @@ load_dotenv(dotenv_path=env_path)
 
 app = Flask(__name__)
 project_dir = os.path.dirname(os.path.abspath(__file__))
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://root:admin@localhost/lgpd"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../salao.db"
+# app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('MySQL_DB')
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv('SQL_DB')
 app.config["SQLALCHEMY_BINDS"] = {
-    "banco_principal" : "sqlite:///../salao.db",
-    "chaves_privadas" : "sqlite:///../chaves_privadas.db"
+    "banco_principal" : os.getenv('SQL_DB'),
+    "chaves_privadas" : os.getenv('SQL_DB_PRIVATEKEY')
 }
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 db.init_app(app)
 login_manager = LoginManager()
