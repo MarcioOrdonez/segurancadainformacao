@@ -1,10 +1,10 @@
 # Projeto Segurança da Informação
 
 ## Objetivo?
-Projeto tem intuito de demonstrar modelagem de banco de dados ideal para um mercado se adequar com a LGPD, fazendo com que seja possível a exclusão de dados normais e sensiveis dos clientes. Por meio de uma aplicação que simule tal situação.
+Projeto tem intuito de demonstrar modelagem de banco de dados ideal para um mercado que se adeque com a LGPD, fazendo com que seja possível a exclusão de dados normais e sensiveis dos clientes. Por meio de uma aplicação que simule tal situação.
 
 ### Sistema de Agendamento para Salão de Cabelereiros
-Usamos como aplicação pratica o caso de um salão de cabelereiro, com intúito de demonstrar nossa modelagem e solução para o novo modelo da LGPD. Onde os dados pessoais do cliente somente podem ser acessados por ele.
+Usamos para exemplificar a criação de sistema de salão de cabeleireiro como cadastro de usuario, agendamento. O Principal objetivo é desmostrar como projetar o sistema para que o usuario possa excluir e gerenciar seus dados sem que interfira na integridade relacional do banco de dados e não prejudique o funcionamento do sistema.
 **Exemplo**
 id |Nome | Telefone | Data do Agendamento | Valor
 ---|--- |--- |--- |---
@@ -42,7 +42,7 @@ A solução utilizada para desse problema foi utilização de criptografia assim
 
 ### Tecnologias utilizadas
 
-* Python 3.8
+* python 3.8
 * virtualenv
 * pip
 * Flask
@@ -52,35 +52,35 @@ A solução utilizada para desse problema foi utilização de criptografia assim
 ## Instalação
 Abra o terminal de comando e execute os seguites comandos:
 
-* Instalação do python 3\
+* Instalação do python 3.8
 `sudo apt-get install python3`
 
-* Instalação do Pip, caso são possua instalado (pip é um sistema de gerenciamento de pacotes padrão da linguagem Python)\
+* Instalação do Pip (pip é um sistema de gerenciamento de pacotes padrão)
  `sudo apt-get install python-pip`
 
-* Instalação do Virtualenv (Criação de ambientes virtuais isolados)\
-`pip install virtualenv`
+* Instalação do Virtualenv (Controlador de dependências)
+`pipx install virtualenv`
 
-* Criando uma virtualenv\
+* Criando uma virtualenv 
 `virtualenv nome_da_virtualenv`
 
-* Ativando a virtualenv\
-`source nome_da_virtualenv/bin/activate`
+* Ativando a virtualenv
+`souce nome_da_virtualenv/bin/activate`
 
 
-* Intalando todas as depêndencias do projeto\
-`pip install -r requirements.txt`
+* Intalando as depêndencias
+`pip install -r requirements.txt` 
 
-* Depois dos procedimentos, basta executar o projeto na IDE desejada e que interprete python
+* Depois dos procedimentos basta executar o projeto em uma IDE desejada que interprete python
 
-## Tecnologias utilizadas
+## Tecnologias Usadas
 
 * Python 
 * Flask
-* HTML e CSS
+* HTML/CSS
 * MySQL
 
-## Autores
+## Autores 
 
 * Marcio Ordonez 
 * Eduardo Nunes 
@@ -90,9 +90,10 @@ Abra o terminal de comando e execute os seguites comandos:
 
 
 
-## Licença
-Esse sistema e seu código fonte são livres para serem estudados e utilizados por quaisquer interessados que desejem entender mais sobre seu funcionamento
+## Lincença 
+Esse sistema tem seu código fonte livre para ser estudado e usado por qualquer pessoa.
 
 
-## Agradecimento
-Professor e Orientador da disciplina de Segurança da Informação da Fatec São José dos Campos
+## Agradecimento 
+Professor e Orientador  Segurança da Informação da Fatec São José dos Campos
+Eduardo Sakaue.

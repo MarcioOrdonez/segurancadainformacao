@@ -3,12 +3,16 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import LoginManager
+from dotenv import load_dotenv
+from pathlib import Path 
 
 import os
 
 db = SQLAlchemy()
 migrate = Migrate()
 
+env_path = Path('.')/'.env'
+load_dotenv(dotenv_path=env_path)
 
 
 app = Flask(__name__)
@@ -53,4 +57,4 @@ def load_user(user_id):
     return tabelas.Usuario.query.get(int(user_id))
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0', port='3000')
+    app.run(debug=True,host='0.0.0.0', port=os.getenv("PORT"))
