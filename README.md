@@ -37,6 +37,17 @@ A solução utilizada para desse problema foi utilização de criptografia assim
 - [x] Novo banco de dados para chave privada
 - [x] Criação de modulo de criptografia
 - [x] Utilização do modulo de criptografia no controller de usuarios
+### Sprint 5
+- [x] Alteração de metodo de encriptação para simetrico
+- [x] Mudança no modelo do banco para novo tipo de criptografia
+- [x] Criação de paginas html utilizando Jinja2 (template padrão do flask)
+- [x] Integração das Paginas com back-end
+- [x] Inicio da navegação do sistema
+- [x] Refatoração de padrão para nomes de metodos e variaveis
+### Sprint 6
+- [ ] Finalizar navegação do sistema
+- [ ] Implementação de estilização do sistema
+- [ ] Gravação de video demonstração
 ## Instalação e Configuração do ambiente virtual
 
 

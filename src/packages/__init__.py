@@ -1,1 +1,1 @@
-from .CriptografiaRSA import Criptografia
+from .Criptografia import CriptografiaAES

@@ -13,7 +13,6 @@ class Usuario(db.Model):
     data_nascimento = db.Column(db.LargeBinary(length=None), nullable=False)
     cpf = db.Column(db.LargeBinary(length=None), nullable=False)
     funcionario = db.Column(db.Boolean, nullable=False)
-    chave_publica = db.Column(db.LargeBinary(length=None), nullable=False)
 
     agendamentos = db.relationship('Agendamento', backref='usuario')
     endereco = db.relationship('Endereco', backref='usuario')
