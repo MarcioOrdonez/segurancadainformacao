@@ -11,26 +11,25 @@ servicos_module = Blueprint('servicos', __name__, url_prefix="/servicos",
 
     
 
-@servicos_module.route("/create", methods=["GET"])
-@login_required
-def servico():
-    return render_template('servico.html')
-    # return 'asdasdasdasas'
+@servicos_module.route("/create", methods=["GET","POST"])
 
-@servicos_module.route("/create", methods=["POST"])
-def create_servico():
-    nome = request.form.get('nome')
-    descricao = request.form.get('descricao')
-    preco = request.form.get('preco')
-    duracao = request.form.get('duracao')
-    novo_servico = Servicos(nome = nome, descricao = descricao,
-                    preco = preco, duracao = duracao,
-                    disponibilidade = True)
-    db.session.add(novo_servico)
-    db.session.commit()
-    return 'tela de criar servicos'
+def servico():
+    if request.method == 'GET':
+        return render_template('servico.html')
+    if request.method == 'POST':
+        nome = request.form.get('nomeServico')
+        descricao = request.form.get('descricao')
+        preco = request.form.get('preco')
+        duracao = request.form.get('duracao')
+        novo_servico = Servicos(nome = nome, descricao = descricao,
+                        preco = preco, duracao = duracao,
+                        disponibilidade = True)
+        db.session.add(novo_servico)
+        db.session.commit()
+        return redirect(url_for('servicos.list_servico'))
+
 
 @servicos_module.route("/list", methods=["GET"])
 def list_servico():
-    servicos = Servicos.query.all()
-    return servicos
+    lista = Servicos.query.all()
+    return render_template('list.html', lista=lista) 
