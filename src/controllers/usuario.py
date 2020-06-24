@@ -20,7 +20,7 @@ def get_historico():
         if current_user.funcionario:
             historico = Agendamento.query.all()
         else:
-            historico = Agendamento.funcario.filter_by(usuario = current_user).all()
+            historico = Agendamento.query.filter_by(id_usuario = current_user.get_id()).all()
 
     elif request.method == "POST":
         if current_user.funcionario:

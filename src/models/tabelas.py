@@ -18,6 +18,21 @@ class Usuario(db.Model):
     endereco = db.relationship('Endereco', backref='usuario')
     telefones = db.relationship('Telefone', backref=db.backref('usuario', lazy=True))
 
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_active(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return True
+
+    def get_id(self):
+        return f'{self.id_usuario}'
+
     def __repr__(self):
         return f'<Usuario {self.id_usuario}>'
 
