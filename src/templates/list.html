@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+</style>
+<table style="width:100%">
+    <tr>
+       <th>Nome</th>
+       <th>Descrição</th>
+       <th>Preço</th>
+       <th>Duração</th>
+    </tr>
+    {% for dados in lista %}
+    <tr>
+        <td>{{ dados.nome }}</td>
+        <td>{{ dados.descricao }}</td>
+        <td>R${{ dados.preco }}</td>
+        <td>{{ dados.duracao }}</td>
+    </tr>
+     {% endfor %}
+</table>
+{% endblock %}
