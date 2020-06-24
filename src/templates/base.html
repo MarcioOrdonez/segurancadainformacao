@@ -55,10 +55,14 @@
             <div class="menu">
                 <nav>
                     <ul>
-                        <li>Entrar</li>
-                        <li>Agendar</li>
-                        <li>Serviço</li>
-                        <li>Meu Perfil</li>
+                        {% if not current_user.is_authenticated %}
+                            <li><a href="">Entrar</a></li>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                            <li><a href="{{ url_for('agendamento.agendamento') }}">Agendar</a></li>
+                            <li><a href="{{ url_for('servicos.servico') }}">Serviços</a></li>
+                            <li>Meu Perfil</li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>

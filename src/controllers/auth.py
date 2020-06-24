@@ -30,7 +30,8 @@ def login():
             chave = Tabela_chaves.query.filter_by(id_usuario=user.id_usuario).first()
             password = cripto.criptografar(chave.chave_privada, password)
             if password == user.password:
-                return 'logado'
+                pass
+            login_user(user)
 
         return 'tela principal depois de logado'
 
@@ -46,7 +47,13 @@ def registrar():
         user_email = request.form.get('email')
         name = cripto.criptografar(chave["chave"],request.form.get('nome'))
         password = request.form.get('senha')
-        data_nascimento = datetime.datetime.strptime(request.form.get('data'),'%Y-%d-%m').date()
+        data_nascimento = None
+
+        try:
+            data_nascimento = datetime.datetime.strptime(request.form.get('data'),'%Y-%m-%d').date()
+        except ValueError as e:
+            data_nascimento = datetime.datetime.strptime(request.form.get('data'),'%Y-%d-%m').date()
+
         data_nascimento = cripto.criptografar(chave["chave"],data_nascimento)
         # data_nascimento = cripto.criptografar(chave_publica,datetime.datetime.now())
         cpf = cripto.criptografar(chave["chave"],request.form.get('cpf'))

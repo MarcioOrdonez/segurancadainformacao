@@ -10,23 +10,21 @@
                     <div>
                         <label>Cliente</label>
                         <div class="select-selected">
-                            <select class="campo-select" required>
-                                <option value="" selected disabled>Selecione um cliente:</option>
-                                <option>Cliente 1</option>
-                                <option>Cliente 2</option>
-                                <option>Cliente 3</option>
-                                <option>Cliente 4</option>
+                            <select name="id_usuario" class="campo-select" required>
+                                {% for (usuario, chave) in usuarios %}
+                                    <option value="{{ usuario.id_usuario }}">
+                                        {{ fn_descript(chave.chave_privada, usuario.nome) }}
+                                    </option>
+                                {% endfor %}
                             </select>
                         </div>
 
                         <label>Serviço</label>
                         <div>
-                            <select class="campo-select" required>
-                                <option value="" selected disabled>Selecione um serviço:</option>
-                                <option>Barba</option>
-                                <option>Noiva</option>
-                                <option>Na regua</option>
-                                <option>Chavoso</option>
+                            <select name="id_servico" class="campo-select" required>
+                                {% for servico in servicos %}
+                                    <option value="{{ servico.id_servico }}">{{ servico.nome }}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
@@ -48,22 +46,30 @@
             </td>
             <td>
                 <table class="list" id="employeeList">
-                    <thead>
-                        <tr>
-                            <th>Cliente</th>
-                            <th>Serviço</th>
-                            <th>Valor</th>
-                            <th>Tempo Duração</th>
-                            <th>Data</th>
-                            <th>Horário</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Serviço</th>
+                                <th>Valor</th>
+                                <th>Tempo Duração</th>
+                                <th>Data</th>
+                                <th>Horário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for (agendamento, chave) in agendamentos %}
+                                <tr>
+                                    <td>{{ fn_descript(chave.chave_privada, agendamento.usuario.nome) }}</td>
+                                    <td>{{ agendamento.servico.nome }}</td>
+                                    <td>{{ agendamento.servico.preco }}</td>
+                                    <td>{{ agendamento.servico.duracao }}</td>
+                                    <td>{{ agendamento.data_agendada.strftime('%d/%m/%Y') }}</td>
+                                    <td>{{ agendamento.data_agendada.strftime('%H:%M') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
             </td>
-
-
         </tr>
     </table>
 {% endblock %}
