@@ -1,75 +1,74 @@
 {% extends "base.html" %}
+{% block title %}Agendamento{% endblock %}
 {% block content %}
-<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-<link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/reset.css') }}">
-    <table class="espaco">
-        <tr>
-            <td>
-                <h2 class="subtitulo">Agendamento</h2>
-                <form action="/agendamento/create" method="POST" autocomplete="off">
+<table>
+    <tr>
+        <td>
+            <h2>Agendamento</h2>
+            <form action="/agendamento/create" method="POST" autocomplete="off">
+                <div>
+                    <label>Cliente</label>
                     <div>
-                        <label>Cliente</label>
-                        <div class="select-selected">
-                            <select name="id_usuario" class="campo-select" required>
-                                {% for (usuario, chave) in usuarios %}
-                                    <option value="{{ usuario.id_usuario }}">
-                                        {{ fn_descript(chave.chave_privada, usuario.nome) }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <label>Serviço</label>
-                        <div>
-                            <select name="id_servico" class="campo-select" required>
-                                {% for servico in servicos %}
-                                    <option value="{{ servico.id_servico }}">{{ servico.nome }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <label>Data</label>
-                        <div>
-                            <input type="date" name="dataAgenda" id="dataAgenda" class="campo-select" required>
-                        </div>
-
-                        <label> Horário</label>
-                        <div>
-                            <input type="time" name="horarioAgenda" id="horarioAgenda" class="campo-select" required>
-                        </div>
-
-                        <div class="form-action-buttons">
-                            <input type="submit" value="Agendar" class="botao-confin">
-                        </div>
-                    </div>
-                </form>
-            </td>
-            <td>
-                <table class="list" id="employeeList">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Serviço</th>
-                                <th>Valor</th>
-                                <th>Tempo Duração</th>
-                                <th>Data</th>
-                                <th>Horário</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for (agendamento, chave) in agendamentos %}
-                                <tr>
-                                    <td>{{ fn_descript(chave.chave_privada, agendamento.usuario.nome) }}</td>
-                                    <td>{{ agendamento.servico.nome }}</td>
-                                    <td>{{ agendamento.servico.preco }}</td>
-                                    <td>{{ agendamento.servico.duracao }}</td>
-                                    <td>{{ agendamento.data_agendada.strftime('%d/%m/%Y') }}</td>
-                                    <td>{{ agendamento.data_agendada.strftime('%H:%M') }}</td>
-                                </tr>
+                        <select name="id_usuario" required>
+                            {% for (usuario, chave) in usuarios %}
+                                <option value="{{ usuario.id_usuario }}">
+                                    {{ fn_descript(chave.chave_privada, usuario.nome) }}
+                                </option>
                             {% endfor %}
-                        </tbody>
-                    </table>
-            </td>
-        </tr>
-    </table>
+                        </select>
+                    </div>
+
+                    <label>Serviço</label>
+                    <div>
+                        <select name="id_servico" required>
+                            {% for servico in servicos %}
+                                <option value="{{ servico.id_servico }}">{{ servico.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <label>Data</label>
+                    <div>
+                        <input type="date" name="dataAgenda" id="dataAgenda" required>
+                    </div>
+
+                    <label> Horário</label>
+                    <div>
+                        <input type="time" name="horarioAgenda" id="horarioAgenda" required>
+                    </div>
+
+                    <div class="form-action-buttons">
+                        <input type="submit" value="Agendar">
+                    </div>
+                </div>
+            </form>
+        </td>
+        <td>
+            <table id="employeeList">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Serviço</th>
+                        <th>Valor</th>
+                        <th>Tempo Duração</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for (agendamento, chave) in agendamentos %}
+                        <tr>
+                            <td>{{ fn_descript(chave.chave_privada, agendamento.usuario.nome) }}</td>
+                            <td>{{ agendamento.servico.nome }}</td>
+                            <td>{{ agendamento.servico.preco }}</td>
+                            <td>{{ agendamento.servico.duracao }}</td>
+                            <td>{{ agendamento.data_agendada.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ agendamento.data_agendada.strftime('%H:%M') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
 {% endblock %}
