@@ -81,4 +81,4 @@ def registrar():
 @login_required
 def logout():
     logout_user()
-    return 'tela inicial'
+    return render_template('login.html')
