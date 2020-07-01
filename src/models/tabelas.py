@@ -8,11 +8,11 @@ class Usuario(db.Model):
 
     id_usuario = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.LargeBinary(length=None), nullable=False)
-    email = db.Column(db.String(60), nullable=False)
+    email = db.Column(db.LargeBinary(length=None), nullable=False)
     password = db.Column(db.LargeBinary(length=None), nullable=False)
     data_nascimento = db.Column(db.LargeBinary(length=None), nullable=False)
     cpf = db.Column(db.LargeBinary(length=None), nullable=False)
-    funcionario = db.Column(db.Boolean, nullable=False)
+    funcionario = db.Column(db.LargeBinary(length=None), nullable=False)
 
     agendamentos = db.relationship('Agendamento', backref='usuario')
     endereco = db.relationship('Endereco', backref='usuario')
@@ -102,5 +102,6 @@ class Tabela_chaves(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chave_privada = db.Column(db.LargeBinary(length=None), nullable=False)
     id_usuario = db.Column(db.Integer, nullable=False)
+    email = db.Column(db.String(60), nullable=False)
     def __repr__(self):
         return f'<Tabela_chaves {self.id}>'
