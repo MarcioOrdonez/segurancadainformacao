@@ -12,10 +12,11 @@ servicos_module = Blueprint('servicos', __name__, url_prefix="/servicos",
     
 
 @servicos_module.route("/create", methods=["GET","POST"])
-
+@login_required
 def servico():
     if request.method == 'GET':
-        return render_template('servico.html')
+        lista = Servicos.query.all()
+        return render_template('servico.html', lista=lista)
     if request.method == 'POST':
         nome = request.form.get('nomeServico')
         descricao = request.form.get('descricao')
@@ -26,10 +27,5 @@ def servico():
                         disponibilidade = True)
         db.session.add(novo_servico)
         db.session.commit()
-        return redirect(url_for('servicos.list_servico'))
-
-
-@servicos_module.route("/list", methods=["GET"])
-def list_servico():
-    lista = Servicos.query.all()
-    return render_template('list.html', lista=lista) 
+        lista = Servicos.query.all()
+        return render_template('servico.html', lista=lista)
