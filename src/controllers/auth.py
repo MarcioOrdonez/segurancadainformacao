@@ -21,17 +21,19 @@ def login():
         email = request.form.get('email')
         password = request.form.get('senha')
 
-        user = Usuario.query.filter_by(email=email).first()
+        chave = Tabela_chaves.query.filter_by(email=email).first()
+        user = Usuario.query.filter_by(id_usuario=chave.id_usuario).first()
 
-        if not user:
+        if not chave:
             flash('Por favor cheque suas informações e tente novamente! ')
             return redirect(url_for('auth.login'))
         else:
-            chave = Tabela_chaves.query.filter_by(id_usuario=user.id_usuario).first()
-            password = cripto.criptografar(chave.chave_privada, password)
-            if password == user.password:
-                pass
-            login_user(user)
+            password_usuario = cripto.descriptografar(chave.chave_privada, user.password)
+            if password == password_usuario:
+                login_user(user)
+            else:
+                flash('Por favor cheque suas informações e tente novamente! ')
+                return redirect(url_for('auth.login'))
 
         return 'tela principal depois de logado'
 
@@ -55,22 +57,21 @@ def registrar():
             data_nascimento = datetime.datetime.strptime(request.form.get('data'),'%Y-%d-%m').date()
 
         data_nascimento = cripto.criptografar(chave["chave"],data_nascimento)
-        # data_nascimento = cripto.criptografar(chave_publica,datetime.datetime.now())
         cpf = cripto.criptografar(chave["chave"],request.form.get('cpf'))
 
-        user = Usuario.query.filter_by(email=user_email).first()
+        user = Tabela_chaves.query.filter_by(email=user_email).first()
 
         if user:
             flash('Email de usuario ja existe!')
             return redirect(url_for('auth.signup'))
 
         new_user = Usuario(nome=name, password=cripto.criptografar(chave["chave"],password),
-                            email=user_email, funcionario=True,
+                            email=cripto.criptografar(chave["chave"],user_email), funcionario=cripto.criptografar(chave["chave"],True),
                             data_nascimento=data_nascimento, cpf=cpf)
 
         db.session.add(new_user)
-        usuario = Usuario.query.filter_by(email=user_email).first()
-        tabela_chaves = Tabela_chaves(id_usuario = usuario.id_usuario, chave_privada = chave["chave"])
+        db.session.commit()
+        tabela_chaves = Tabela_chaves(id_usuario = new_user.id_usuario, chave_privada = chave["chave"],email = user_email)
         db.session.add(tabela_chaves)
         db.session.commit()
 

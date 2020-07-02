@@ -96,7 +96,6 @@ Abra o terminal de comando e execute os seguites comandos:
 * Marcio Ordonez 
 * Eduardo Nunes 
 * Thiago Dias
-* Elias Fabiano
 * Cauan Almeida
 
 
