@@ -9,10 +9,9 @@ import os
 db = SQLAlchemy()
 migrate = Migrate()
 
-
+project_dir = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
-project_dir = os.path.dirname(os.path.abspath(__file__))
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqldb://root:admin@localhost/lgpd"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../salao.db"
 app.config["SQLALCHEMY_BINDS"] = {
@@ -23,13 +22,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
 
 db.init_app(app)
+
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
-from src.models import tabelas
-db.create_all(app=app)
 migrate.init_app(app, db)
+
 with app.app_context():
 
     from src.controllers import auth
@@ -47,10 +46,12 @@ with app.app_context():
     manager = Manager(app)
     manager.add_command('db', MigrateCommand)
 
+    db.create_all(app=app)
+
 @login_manager.user_loader
 def load_user(user_id):
-    from src.models import tabelas
-    return tabelas.Usuario.query.get(int(user_id))
+    from src.models.tabelas import Usuario
+    return Usuario.query.get(int(user_id))
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0', port='3000')

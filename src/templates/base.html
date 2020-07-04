@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-    <link rel="stylesheet" type="text/css" href="//assets.locaweb.com.br/locastyle/2.0.6/stylesheets/locastyle.css">
+    <link rel="stylesheet" type="text/css" href="https://assets.locaweb.com.br/locastyle/2.0.6/stylesheets/locastyle.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>{% block title %}{% endblock %}</title>
     </head>
@@ -12,25 +12,36 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     {% if current_user.is_authenticated %}
                         <div class="navbar-nav mr-md-5">
-                            <li class="px-2"><a class="nav-item nav-link" href="{{ url_for('servicos.servico') }}">Serviço</a></li>
-                            <li class="dropdown px-2"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Agendamentos</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('agendamento.agendamento') }}">Agendamentos</a>
-                                <a class="dropdown-item" href="{{ url_for('agendamento.criar_agendamento') }}">Realizar agendamento</a>
-                            </div></li>
+                            {% if user_is_funcionario %}
+                                <li class="px-2">
+                                    <a class="nav-item nav-link" href="{{ url_for('servicos.servico') }}">
+                                        Serviços
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li class="dropdown px-2">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Agendamentos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url_for('usuario.get_historico') }}">Ver histórico de agendamentos</a>
+                                    {% if user_is_funcionario %}
+                                        <a class="dropdown-item" href="{{ url_for('agendamento.criar_agendamento') }}">Realizar agendamento</a>
+                                    {% endif %}
+                                </div>
+                            </li>
                             <li class="px-2"><a class="nav-item nav-link" href="#">Meu Perfil</a></li>
                         </div>
                     {% endif %}
-                    <div>     
+                    <div>
                         {% if not current_user.is_authenticated %} 
-                            <a class="btn btn-light mr-md-4" href="{{ url_for('auth.login') }}">Log in</a>
-                            <a class="btn btn-outline-primary" href="{{ url_for('auth.registrar') }}">Sign in</a>
+                            <a class="btn btn-light mr-md-4" href="{{ url_for('auth.login') }}">Entrar</a>
+                            <a class="btn btn-outline-primary" href="{{ url_for('auth.registrar') }}">Cadastro</a>
                         {% endif %}
                         {% if current_user.is_authenticated %}
-                            <a class="btn btn-secondary nav-item" href="{{ url_for('auth.logout') }}">Log out</a>
+                            <a class="btn btn-secondary nav-item" href="{{ url_for('auth.logout') }}">Sair</a>
                         {% endif %}
-                    </div>  
+                    </div>
                 </div>
             </nav>
         </div>

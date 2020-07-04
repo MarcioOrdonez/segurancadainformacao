@@ -1,6 +1,5 @@
 from src import db
 
-
 class Usuario(db.Model):
 
     __bind_key__ = 'banco_principal'

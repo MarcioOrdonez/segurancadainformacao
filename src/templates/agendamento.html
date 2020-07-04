@@ -5,14 +5,14 @@
     <tr>
         <td>
             <h2>Agendamento</h2>
-            <form action="/agendamento/create" method="POST" autocomplete="off">
+            <form action="{{ url_for('agendamento.criar_agendamento') }}" method="POST" autocomplete="off">
                 <div>
                     <label>Cliente</label>
                     <div>
                         <select name="id_usuario" required>
-                            {% for (usuario, chave) in usuarios %}
-                                <option value="{{ usuario.id_usuario }}">
-                                    {{ fn_descript(chave.chave_privada, usuario.nome) }}
+                            {% for cliente, chave in clientes %}
+                                <option value="{{ cliente.id_usuario }}">
+                                    {{ fn_decript(chave.chave_privada, cliente.nome) }}
                                 </option>
                             {% endfor %}
                         </select>
@@ -32,7 +32,7 @@
                         <input type="date" name="dataAgenda" id="dataAgenda" required>
                     </div>
 
-                    <label> Horário</label>
+                    <label>Horário</label>
                     <div>
                         <input type="time" name="horarioAgenda" id="horarioAgenda" required>
                     </div>
@@ -42,32 +42,6 @@
                     </div>
                 </div>
             </form>
-        </td>
-        <td>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Serviço</th>
-                        <th>Valor</th>
-                        <th>Tempo Duração</th>
-                        <th>Data</th>
-                        <th>Horário</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for (agendamento, chave) in agendamentos %}
-                        <tr>
-                            <td>{{ fn_descript(chave.chave_privada, agendamento.usuario.nome) }}</td>
-                            <td>{{ agendamento.servico.nome }}</td>
-                            <td>{{ agendamento.servico.preco }}</td>
-                            <td>{{ agendamento.servico.duracao }}</td>
-                            <td>{{ agendamento.data_agendada.strftime('%d/%m/%Y') }}</td>
-                            <td>{{ agendamento.data_agendada.strftime('%H:%M') }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
         </td>
     </tr>
 </table>
