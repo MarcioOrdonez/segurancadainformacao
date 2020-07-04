@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Histórico de Serviços{% endblock %}
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Serviço</th>
+                <th>Valor</th>
+                <th>Duração</th>
+                <th>Data</th>
+                <th>Horário</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if historico_is_list %}
+                {% for agendamento, chave in historico %}
+                    <tr>
+                        <td>{{ fn_decript(chave.chave_privada, agendamento.usuario.nome) }}</td>
+                        <td>{{ agendamento.servico.nome }}</td>
+                        <td>{{ agendamento.servico.preco }}</td>
+                        <td>{{ agendamento.servico.duracao }}</td>
+                        <td>{{ agendamento.data_agendada.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ agendamento.data_agendada.strftime('%H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                {% for agendamento in historico['agendamentos'] %}
+                    <tr>
+                        <td>{{ fn_decript(historico['chave_usuario'].chave_privada, agendamento.usuario.nome) }}</td>
+                        <td>{{ agendamento.servico.nome }}</td>
+                        <td>{{ agendamento.servico.preco }}</td>
+                        <td>{{ agendamento.servico.duracao }}</td>
+                        <td>{{ agendamento.data_agendada.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ agendamento.data_agendada.strftime('%H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

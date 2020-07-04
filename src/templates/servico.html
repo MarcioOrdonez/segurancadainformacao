@@ -53,14 +53,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for dados in lista %}
-                <tr>
-                    <th scope="row">{{ dados.id_servico }}</th>
-                    <td>{{ dados.nome }}</td>
-                    <td>{{ dados.descricao }}</td>
-                    <td>R${{ dados.preco }}</td>
-                    <td>{{ dados.duracao }}</td>
-                </tr>
+                {% for servico in servicos %}
+                    <tr>
+                        <th scope="row">{{ servico.id_servico }}</th>
+                        <td>{{ servico.nome }}</td>
+                        <td>{{ servico.descricao }}</td>
+                        <td>R${{ servico.preco }}</td>
+                        <td>{{ servico.duracao }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ea20890a8477
+Revision ID: 74b54b2ab4c8
 Revises: 
-Create Date: 2020-05-25 20:30:12.576307
+Create Date: 2020-07-04 00:54:05.809056
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ea20890a8477'
+revision = '74b54b2ab4c8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,14 +27,21 @@ def upgrade():
     sa.Column('disponibilidade', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id_servico')
     )
+    op.create_table('tabela_chaves',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('chave_privada', sa.LargeBinary(), nullable=False),
+    sa.Column('id_usuario', sa.Integer(), nullable=False),
+    sa.Column('email', sa.String(length=60), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('usuarios',
     sa.Column('id_usuario', sa.Integer(), nullable=False),
-    sa.Column('nome', sa.String(length=60), nullable=False),
-    sa.Column('email', sa.String(length=60), nullable=False),
-    sa.Column('password', sa.String(length=200), nullable=False),
-    sa.Column('data_nascimento', sa.Date(), nullable=False),
-    sa.Column('cpf', sa.String(length=11), nullable=False),
-    sa.Column('funcionario', sa.Boolean(), nullable=False),
+    sa.Column('nome', sa.LargeBinary(), nullable=False),
+    sa.Column('email', sa.LargeBinary(), nullable=False),
+    sa.Column('password', sa.LargeBinary(), nullable=False),
+    sa.Column('data_nascimento', sa.LargeBinary(), nullable=False),
+    sa.Column('cpf', sa.LargeBinary(), nullable=False),
+    sa.Column('funcionario', sa.LargeBinary(), nullable=False),
     sa.PrimaryKeyConstraint('id_usuario')
     )
     op.create_table('agendamento',
@@ -71,5 +78,6 @@ def downgrade():
     op.drop_table('enderecos')
     op.drop_table('agendamento')
     op.drop_table('usuarios')
+    op.drop_table('tabela_chaves')
     op.drop_table('servicos')
     # ### end Alembic commands ###
