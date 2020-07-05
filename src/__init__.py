@@ -31,6 +31,9 @@ migrate.init_app(app, db)
 
 with app.app_context():
 
+    from src.controllers import principal
+    app.register_blueprint(principal)
+
     from src.controllers import auth
     app.register_blueprint(auth)
 
