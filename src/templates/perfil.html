@@ -1,20 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Perfil{% endblock %}
 {% block content %}
-<a href="{{ url_for('usuario.editar') }}"><button class="btn btn-primary btn-sm" type="button" href>Editar Perfil</button></a>
-<h1>{{nome}}</h1>
-<h1>{{cpf}}</h1>
-<h1>{{data_nascimento}}</h1>
-{% if telefone %}
-<h1>{{telefone.numero}}</h1>
-{% else %}
-<h1>Adicionar telefone</h1>
-{% endif %}
-{% if endereco %}
-<h1>{{endereco.cep}}</h1>
-<h1>{{endereco.numero}}</h1>
-<h1>{{endereco.complemento}}</h1>
-{% else %}
-<h1>Adicionar endereço</h1>
-{% endif %}
+<div class="container-fluid py-5 mt-4">
+    <div class="row justify-content-center">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h2 class="text-center align-middle mb-5">Editar perfil</h2>
+            </li>
+            <li class="list-group-item">Nome: {{nome}}</li>
+            <li class="list-group-item">CPF: {{cpf}}</li>
+            <li class="list-group-item">Data de dascimento: {{data_nascimento}}</li>
+            {% if telefone %}
+            <li class="list-group-item">Telefone: {{telefone.numero}}</li>
+            {% else %}
+            <li class="list-group-item">Telefone: Adicionar telefone</li>
+            {% endif %}
+            {% if endereco %}
+            <li class="list-group-item">Cep: {{endereco.cep}}</li>
+            <li class="list-group-item">Numero: {{endereco.numero}}</li>
+            <li class="list-group-item">Complemento: {{endereco.complemento}}</li>
+            {% else %}
+            <li class="list-group-item">Endereço: Adicionar endereço</li>
+            {% endif %}
+            <a href="{{ url_for('usuario.editar') }}">
+                <button class="btn btn-primary btn-sm" type="button" href>Editar Perfil</button>
+            </a>
+        </ul>
+    </div>
+</div>
 {% endblock %}
