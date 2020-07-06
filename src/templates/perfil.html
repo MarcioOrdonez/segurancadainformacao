@@ -25,6 +25,11 @@
             <a href="{{ url_for('usuario.editar') }}">
                 <button class="btn btn-primary btn-block" type="button" href>Editar Perfil</button>
             </a>
+            {% if not user_is_funcionario %}
+            <a href="{{ url_for('usuario.deletar') }}">
+                <button class="btn btn-danger btn-block" type="button" href>Deletar Perfil</button>
+            </a>
+            {% endif %}
         </ul>
     </div>
 </div>

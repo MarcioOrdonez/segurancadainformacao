@@ -140,10 +140,12 @@ def editar():
         data_nascimento = cripto.descriptografar(chave, current_user.data_nascimento)
         telefone = Telefone.query.filter_by(id_usuario=current_user.get_id()).first()
         endereco = Endereco.query.filter_by(id_usuario=current_user.get_id()).first()
-
+        chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
+        is_funcionario = user_is_funcionario(chave_usuario, current_user)
         return render_template('perfil_editar.html', nome=nome, cpf=cpf, data_nascimento=data_nascimento,
-                                telefone=telefone, endereco=endereco )
-    
+                                telefone=telefone, endereco=endereco, user_is_funcionario=is_funcionario )  
+
+
     if request.method == "POST":
         nome = request.form.get('nome')
         cpf = request.form.get('cpf')
@@ -155,6 +157,7 @@ def editar():
         current_user.cpf = cpf
         current_user.data_nascimento = data_nascimento
         return redirect(url_for('usuario.perfil'))
+
 
 @usuario_module.route('/telefone', methods=['Post'])
 @login_required
@@ -177,3 +180,13 @@ def endereco():
     db.session.add(novo_endereco)
     db.session.commit()
     return redirect(url_for('usuario.perfil'))
+
+@usuario_module.route('/deletar', methods=['Post','GET'])
+@login_required
+def deletar():
+    chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
+    is_funcionario = user_is_funcionario(chave_usuario, current_user)
+    if not is_funcionario:
+        db.session.delete(chave_usuario)
+        db.session.commit()
+        return redirect(url_for('auth.logout'))
