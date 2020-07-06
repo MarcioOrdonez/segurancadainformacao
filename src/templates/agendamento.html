@@ -12,9 +12,11 @@
                         <div class="col-sm-10">
                             <select name="id_usuario" class="form-control form-control-lg border border-primary" required>
                                 {% for cliente, chave in clientes %}
-                                    <option value="{{ cliente.id_usuario }}">
-                                        {{ fn_decript(chave.chave_privada, cliente.nome) }}
-                                    </option>
+                                    {% if chave %}
+                                        <option value="{{ cliente.id_usuario }}">
+                                            {{ fn_decript(chave.chave_privada, cliente.nome) }}
+                                        </option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>

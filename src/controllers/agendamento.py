@@ -29,8 +29,11 @@ def agendamento():
         for usuario in usuarios:
             chave = Tabela_chaves.query.filter_by(id_usuario=usuario.id_usuario).first()
 
-            if not user_is_funcionario(chave, usuario):
-                clientes.append((usuario, chave))
+            if chave:
+                if not user_is_funcionario(chave, usuario):
+                    clientes.append((usuario, chave))
+            else:
+                clientes.append((usuario, None))
 
         return render_template('agendamento.html', servicos=servicos,
                                clientes=clientes,

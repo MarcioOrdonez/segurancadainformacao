@@ -18,7 +18,11 @@
             {% for agendamento, chave in historico %}
                 <tr>
                     <th scope="row">{{ agendamento.id_agendamento }}</th>
-                    <td>{{ fn_decript(chave.chave_privada, agendamento.usuario.nome) }}</td>
+                    {% if chave %}
+                        <td>{{ fn_decript(chave.chave_privada, agendamento.usuario.nome) }}</td>
+                    {% else %}
+                        <td>USUÁRIO ANÔNIMO</td>
+                    {% endif %}
                     <td>{{ agendamento.servico.nome }}</td>
                     <td>{{ agendamento.servico.preco }}</td>
                     <td>{{ agendamento.servico.duracao }}</td>
