@@ -72,7 +72,7 @@ def registrar():
         except ValueError as e:
             data_nascimento = datetime.strptime(request.form.get('data'),'%Y-%d-%m').date()
 
-        is_func = True
+        is_func = False
         novo_usuario = Usuario(
             nome=cripto.criptografar(chave["chave"], nome),
             email=cripto.criptografar(chave["chave"], email),
