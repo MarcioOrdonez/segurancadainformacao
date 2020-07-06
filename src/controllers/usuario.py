@@ -114,3 +114,66 @@ def alterar_end():
         
         
     return 'não alterado'
+
+@usuario_module.route('/perfil', methods=['GET'])
+@login_required
+def perfil():
+    chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
+    chave  = chave_usuario.chave_privada
+    nome = cripto.descriptografar(chave, current_user.nome)
+    cpf = cripto.descriptografar(chave, current_user.cpf)
+    data_nascimento = cripto.descriptografar(chave, current_user.data_nascimento)
+    telefone = Telefone.query.filter_by(id_usuario=current_user.get_id()).first()
+    endereco = Endereco.query.filter_by(id_usuario=current_user.get_id()).first()
+
+    return render_template('perfil.html', nome=nome, cpf=cpf, data_nascimento=data_nascimento,
+                            telefone=telefone, endereco=endereco )
+
+@usuario_module.route('/editar', methods=['GET','Post'])
+@login_required
+def editar():
+    if request.method == "GET":
+        chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
+        chave  = chave_usuario.chave_privada
+        nome = cripto.descriptografar(chave, current_user.nome)
+        cpf = cripto.descriptografar(chave, current_user.cpf)
+        data_nascimento = cripto.descriptografar(chave, current_user.data_nascimento)
+        telefone = Telefone.query.filter_by(id_usuario=current_user.get_id()).first()
+        endereco = Endereco.query.filter_by(id_usuario=current_user.get_id()).first()
+
+        return render_template('perfil_editar.html', nome=nome, cpf=cpf, data_nascimento=data_nascimento,
+                                telefone=telefone, endereco=endereco )
+    
+    if request.method == "POST":
+        nome = request.form.get('nome')
+        cpf = request.form.get('cpf')
+        try:
+            data_nascimento = datetime.strptime(request.form.get('data'),'%Y-%m-%d').date()
+        except ValueError as e:
+            data_nascimento = datetime.strptime(request.form.get('data'),'%Y-%d-%m').date()
+        current_user.nome = nome
+        current_user.cpf = cpf
+        current_user.data_nascimento = data_nascimento
+        return redirect(url_for('usuario.perfil'))
+
+@usuario_module.route('/telefone', methods=['Post'])
+@login_required
+def telefone():
+    numero = request.form.get('numero')
+    novo_telefone = Telefone(numero=numero, id_usuario=current_user.get_id())
+
+    db.session.add(novo_telefone)
+    db.session.commit()
+    return redirect(url_for('usuario.perfil'))
+
+@usuario_module.route('/endereco', methods=['Post'])
+@login_required
+def endereco():
+    numero = request.form.get('numero')
+    cep = request.form.get('cep')
+    complemento = request.form.get('complemento')
+    novo_endereco = Endereco(numero=numero,cep=cep, complemento=complemento, id_usuario=current_user.get_id())
+
+    db.session.add(novo_endereco)
+    db.session.commit()
+    return redirect(url_for('usuario.perfil'))
