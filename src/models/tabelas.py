@@ -14,8 +14,8 @@ class Usuario(db.Model):
     funcionario = db.Column(db.LargeBinary(length=None), nullable=False)
 
     agendamentos = db.relationship('Agendamento', backref='usuario')
-    endereco = db.relationship('Endereco', backref='usuario')
-    telefones = db.relationship('Telefone', backref=db.backref('usuario', lazy=True))
+    endereco = db.relationship('Endereco', backref='usuario', uselist=False)
+    telefone = db.relationship('Telefone', backref='usuario', uselist=False)
 
     @property
     def is_authenticated(self):
@@ -102,5 +102,6 @@ class Tabela_chaves(db.Model):
     chave_privada = db.Column(db.LargeBinary(length=None), nullable=False)
     id_usuario = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(60), nullable=False)
+
     def __repr__(self):
         return f'<Tabela_chaves {self.id}>'
