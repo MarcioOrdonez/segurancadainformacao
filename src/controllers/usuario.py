@@ -2,12 +2,12 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 
-import datetime
-
 from src import db
 from src.models.tabelas import *
 from src.packages import CriptografiaAES
 from src.utils.usuario_utils import user_is_funcionario
+
+from datetime import datetime
 
 cripto = CriptografiaAES()
 
@@ -88,7 +88,7 @@ def delete_user():
 
     return 'deletado'
 
-@usuario_module.route('/deleta_endereco', methods=['Post'])
+@usuario_module.route('/deleta_endereco', methods=['POST'])
 @login_required
 def deletar_end():
     endereco = Endereco.query.filter_by(id_usuario=current_user.id_usuario).first()
@@ -98,7 +98,7 @@ def deletar_end():
 
     return 'endereco não deletado'
 
-@usuario_module.route('/alterar_endereco', methods=['Post'])
+@usuario_module.route('/alterar_endereco', methods=['POST'])
 @login_required
 def alterar_end():
     numero=int(request.form.get('numero'))
@@ -119,47 +119,53 @@ def alterar_end():
 @login_required
 def perfil():
     chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
-    chave  = chave_usuario.chave_privada
-    nome = cripto.descriptografar(chave, current_user.nome)
-    cpf = cripto.descriptografar(chave, current_user.cpf)
-    data_nascimento = cripto.descriptografar(chave, current_user.data_nascimento)
+    is_funcionario = user_is_funcionario(chave_usuario, current_user)
+
+    nome = cripto.descriptografar(chave_usuario.chave_privada, current_user.nome)
+    cpf = cripto.descriptografar(chave_usuario.chave_privada, current_user.cpf)
+    data_nascimento = cripto.descriptografar(chave_usuario.chave_privada, current_user.data_nascimento)
     telefone = Telefone.query.filter_by(id_usuario=current_user.get_id()).first()
     endereco = Endereco.query.filter_by(id_usuario=current_user.get_id()).first()
 
     return render_template('perfil.html', nome=nome, cpf=cpf, data_nascimento=data_nascimento,
-                            telefone=telefone, endereco=endereco )
+                           telefone=telefone, endereco=endereco, user_is_funcionario=is_funcionario)
 
-@usuario_module.route('/editar', methods=['GET','Post'])
+@usuario_module.route('/editar', methods=['GET','POST'])
 @login_required
 def editar():
+    chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
+
     if request.method == "GET":
-        chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
-        chave  = chave_usuario.chave_privada
-        nome = cripto.descriptografar(chave, current_user.nome)
-        cpf = cripto.descriptografar(chave, current_user.cpf)
-        data_nascimento = cripto.descriptografar(chave, current_user.data_nascimento)
+        is_funcionario = user_is_funcionario(chave_usuario, current_user)
+        nome = cripto.descriptografar(chave_usuario.chave_privada, current_user.nome)
+        cpf = cripto.descriptografar(chave_usuario.chave_privada, current_user.cpf)
+        data_nascimento = cripto.descriptografar(chave_usuario.chave_privada, current_user.data_nascimento)
         telefone = Telefone.query.filter_by(id_usuario=current_user.get_id()).first()
         endereco = Endereco.query.filter_by(id_usuario=current_user.get_id()).first()
-        chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()
-        is_funcionario = user_is_funcionario(chave_usuario, current_user)
-        return render_template('perfil_editar.html', nome=nome, cpf=cpf, data_nascimento=data_nascimento,
-                                telefone=telefone, endereco=endereco, user_is_funcionario=is_funcionario )  
 
+        return render_template('perfil_editar.html', nome=nome, cpf=cpf, data_nascimento=data_nascimento,
+                                telefone=telefone, endereco=endereco, user_is_funcionario=is_funcionario )
 
     if request.method == "POST":
         nome = request.form.get('nome')
         cpf = request.form.get('cpf')
+        data_nascimento = request.form.get('data')
+
         try:
-            data_nascimento = datetime.strptime(request.form.get('data'),'%Y-%m-%d').date()
+            data_nascimento = datetime.strptime(data_nascimento,'%Y-%m-%d').date()
         except ValueError as e:
-            data_nascimento = datetime.strptime(request.form.get('data'),'%Y-%d-%m').date()
-        current_user.nome = nome
-        current_user.cpf = cpf
-        current_user.data_nascimento = data_nascimento
+            data_nascimento = datetime.strptime(data_nascimento,'%Y-%d-%m').date()
+
+        current_user.nome = cripto.criptografar(chave_usuario.chave_privada, nome)
+        current_user.cpf = cripto.criptografar(chave_usuario.chave_privada, cpf)
+        current_user.data_nascimento = cripto.criptografar(chave_usuario.chave_privada, data_nascimento)
+
+        db.session.commit()
+
         return redirect(url_for('usuario.perfil'))
 
 
-@usuario_module.route('/telefone', methods=['Post'])
+@usuario_module.route('/telefone', methods=['POST'])
 @login_required
 def telefone():
     numero = request.form.get('numero')
@@ -169,7 +175,7 @@ def telefone():
     db.session.commit()
     return redirect(url_for('usuario.perfil'))
 
-@usuario_module.route('/endereco', methods=['Post'])
+@usuario_module.route('/endereco', methods=['POST'])
 @login_required
 def endereco():
     numero = request.form.get('numero')
@@ -181,7 +187,7 @@ def endereco():
     db.session.commit()
     return redirect(url_for('usuario.perfil'))
 
-@usuario_module.route('/deletar', methods=['Post','GET'])
+@usuario_module.route('/deletar', methods=['POST','GET'])
 @login_required
 def deletar():
     chave_usuario = Tabela_chaves.query.filter_by(id_usuario=current_user.get_id()).first()

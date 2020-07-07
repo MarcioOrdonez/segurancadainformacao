@@ -57,7 +57,7 @@ def registrar():
         nome = request.form.get('nome')
         cpf = request.form.get('cpf')
         senha = request.form.get('senha')
-        data_nascimento = None
+        data_nascimento = request.form.get('data')
 
         chave_usuario = Tabela_chaves.query.filter_by(email=email).first()
 
@@ -68,9 +68,9 @@ def registrar():
         chave = cripto.criaChave()
 
         try:
-            data_nascimento = datetime.strptime(request.form.get('data'),'%Y-%m-%d').date()
+            data_nascimento = datetime.strptime(data_nascimento,'%Y-%m-%d').date()
         except ValueError as e:
-            data_nascimento = datetime.strptime(request.form.get('data'),'%Y-%d-%m').date()
+            data_nascimento = datetime.strptime(data_nascimento,'%Y-%d-%m').date()
 
         is_func = False
         novo_usuario = Usuario(
