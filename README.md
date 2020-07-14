@@ -45,9 +45,9 @@ A solução utilizada para desse problema foi utilização de criptografia assim
 - [x] Inicio da navegação do sistema
 - [x] Refatoração de padrão para nomes de metodos e variaveis
 ### Sprint 6
-- [ ] Finalizar navegação do sistema
-- [ ] Implementação de estilização do sistema
-- [ ] Gravação de video demonstração
+- [x] Finalizar navegação do sistema
+- [x] Implementação de estilização do sistema
+- [x] Gravação de video demonstração
 ## Instalação e Configuração do ambiente virtual
 
 
@@ -93,10 +93,10 @@ Abra o terminal de comando e execute os seguites comandos:
 
 ## Autores
 
-* Marcio Ordonez 
-* Eduardo Nunes 
-* Thiago Dias
-* Cauan Almeida
+* Marcio Ordonez [Linkedin](https://www.linkedin.com/in/marcio-ordonez "Linkedin") [GitHub](https://github.com/MarcioOrdonez "GitHub")
+* Eduardo Nunes [Linkedin](https://www.linkedin.com/in/eduardonunes-santos "Linkedin") [GitHub](https://github.com/eduns "GitHub")
+* Thiago Dias [Linkedin](https://www.linkedin.com/in/thiago-dias-918363190 "Linkedin") [GitHub](https://github.com/ThiagoDT "GitHub")
+* Cauan Almeida [Linkedin](https://www.linkedin.com/in/cauancesar-almeida "Linkedin") [GitHub](https://github.com/Tsundek "GitHub")
 
 
 
